@@ -95,7 +95,12 @@ export default {
 
       response.status(200).send(data)
     } catch (error) {
-      response.status(400).send({ message: error.message })
+      if (error instanceof Error) {
+        response.status(400).send({ message: error.message })
+      } else {
+        // Handle non-Error objects, or rethrow the error
+        throw error;
+      }
     }
   },
 
@@ -135,7 +140,7 @@ async function createTakeNoteDataRepo(username: string, accessToken: string): Pr
   try {
     await SDK(Method.POST, `/user/repos`, accessToken, takenoteDataRepo)
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error as string)
   }
 }
 
@@ -153,6 +158,6 @@ async function createInitialCommit(username: string, accessToken: string): Promi
       noteCommit
     )
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error as string)
   }
 }

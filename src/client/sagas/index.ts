@@ -33,7 +33,7 @@ function* loginUser() {
       yield put(loginSuccess(data))
     }
   } catch (error) {
-    yield put(loginError(error.message))
+    yield put(loginError((error as Error).message))
   }
 }
 
@@ -65,7 +65,7 @@ function* fetchNotes() {
 
     yield put(loadNotesSuccess({ notes: data, sortOrderKey: notesSortKey }))
   } catch (error) {
-    yield put(loadNotesError(error.message))
+    yield put(loadNotesError((error as Error).message))
   }
 }
 
@@ -81,7 +81,7 @@ function* fetchCategories() {
 
     yield put(loadCategoriesSuccess(data))
   } catch (error) {
-    yield put(loadCategoriesError(error.message))
+    yield put(loadCategoriesError((error as Error).message))
   }
 }
 
@@ -106,7 +106,7 @@ function* syncData({ payload }: SyncAction) {
     }
     yield put(syncSuccess(dayjs().format()))
   } catch (error) {
-    yield put(syncError(error.message))
+    yield put(syncError((error as).message))
   }
 }
 
